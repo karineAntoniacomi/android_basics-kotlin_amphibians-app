@@ -40,13 +40,14 @@ class AmphibianViewModel : ViewModel() {
     private val _amphibian = MutableLiveData<Amphibian>()
     val amphibian : LiveData<Amphibian> = _amphibian
 
-    // Function that gets a list of amphibians from the api service and sets the status via a Coroutine
-    private fun getAmphibiansList() {
+    // Function that gets a sst of amphibians from the api service and sets the status via a Coroutine
+    fun getAmphibiansList() {
+        // status inicial da corrotina
+        _status.value = AmphibianApiStatus.LOADING
+
         // inicia corrotina para executar solicitação GET e fazer download dos dados
         // de anfíbios chamando o método getAmphibians() do serviço da Retrofit.
         viewModelScope.launch {
-            // status inicial da corrotina
-            _status.value = AmphibianApiStatus.LOADING
             // verifica se ocorre excessão ao enviar a solicitação GET
             try {
                 _amphibians.value = AmphibianApi.retrofitService.getAmphibians()
@@ -54,9 +55,8 @@ class AmphibianViewModel : ViewModel() {
 
             // trata excessão
             } catch (e: Exception) {
+                _amphibians.value = emptyList()
                 _status.value = AmphibianApiStatus.ERROR
-                // Define como lista vazia
-                _amphibians.value = listOf()
             }
         }
     }
@@ -65,7 +65,6 @@ class AmphibianViewModel : ViewModel() {
     // Esse método é chamado ao selecionar um anfíbio, para que seja exibido na tela de detalhes.
     fun onAmphibianClicked(amphibian: Amphibian) {
         // Set the amphibian object
-        // anfíbio clicaco -> chama onAmphibianClicked() e passa o objeto do anfíbio para ele.
         _amphibian.value = amphibian
     }
 }

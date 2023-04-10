@@ -22,15 +22,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 // Variável para armazenar o URL base da API
-private val BASE_URL = "https://developer.android.com/courses/" +
-        "pathways/android-basics-kotlin-unit-4-pathway-2/" +
-        "android-basics-kotlin-unit-4-pathway-2/"
+private const val BASE_URL = "https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/"
 
-// Cria objeto Moshi com a fábrica do adaptador Kotlin
-//  que a Retrofit vai usar para analisar o JSON
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
+// Cria objeto Moshi com a fábrica do adaptador Kotlin que a Retrofit usa para analisar JSON
+private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
 // Cria instância/objeto da Retrofit usando o conversor da Moshi
 private val retrofit = Retrofit.Builder()
@@ -47,7 +42,7 @@ interface AmphibianApiService {
     // Quando este método é invocado, a Retrofit anexa o endpoint amphibian ao URL base.
     // Anotação @GET indica que o endpoint amphibians será chamado com o método HTTP GET.
     // suspend: Permite chamar o método em corrotinas.
-    @GET("amphibians")
+    @GET("android-basics-kotlin-unit-4-pathway-2-project-api.json")
     suspend fun getAmphibians(): List<Amphibian>
 }
 
@@ -55,6 +50,6 @@ interface AmphibianApiService {
 // lenta da Retrofit, que usa a interface AmphibianApiService.
 object AmphibianApi {
     // lazy garante que o objeto seja inicializado no primeiro uso do objeto
-    val retrofitService : AmphibianApiService by lazy {
+    val retrofitService: AmphibianApiService by lazy {
         retrofit.create(AmphibianApiService::class.java) }
 }

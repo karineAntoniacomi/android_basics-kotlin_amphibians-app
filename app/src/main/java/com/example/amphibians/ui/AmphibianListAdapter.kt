@@ -23,10 +23,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.amphibians.databinding.ListViewItemBinding
 import com.example.amphibians.network.Amphibian
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- */
+/** This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
+ * data, including computing diffs between lists. */
 class AmphibianListAdapter(val clickListener: AmphibianListener) :
     ListAdapter<Amphibian, AmphibianListAdapter.AmphibianViewHolder>(DiffCallback) {
 
